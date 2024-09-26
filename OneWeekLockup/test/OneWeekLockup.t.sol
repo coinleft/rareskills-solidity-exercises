@@ -36,7 +36,7 @@ contract OneWeekLockupTest is Test {
 
         vm.expectRevert();
         oneWeekLockup.withdrawEther(2 ether);
-
+        
         oneWeekLockup.withdrawEther(1 ether);
         assertEq(
             address(this).balance,
