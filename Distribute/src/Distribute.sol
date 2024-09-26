@@ -13,5 +13,10 @@ contract Distribute {
 
     function distributeEther(address[] memory addresses) public {
         // your code here
+        require(addresses.length > 0, 'No recipients provided');
+        uint256 sharedEther = address(this).balance / addresses.length;
+        for(uint i = 0; i < addresses.length; i++) {
+            payable(addresses[i]).transfer(sharedEther);
+        }
     }
 }

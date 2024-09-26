@@ -15,7 +15,7 @@ contract Child is Parent {
 
     function setValue(uint256 newValue) public {
         _value = newValue;
-    }
+    } 
 
     function getValue() public view returns (uint256) {
         return _value;

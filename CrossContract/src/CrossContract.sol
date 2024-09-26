@@ -5,12 +5,13 @@ contract CrossContract {
     /**
      * The function below is to call the price function of PriceOracle1 and PriceOracle2 contracts below and return the lower of the two prices
      */
-
+     
     function getLowerPrice(
         address _priceOracle1,
         address _priceOracle2
     ) external view returns (uint256) {
         // your code here
+        return (PriceOracle1(_priceOracle1).price() < PriceOracle2(_priceOracle2).price()) ? PriceOracle1(_priceOracle1).price() : PriceOracle2(_priceOracle2).price();
     }
 }
 

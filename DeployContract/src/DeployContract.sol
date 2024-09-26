@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.13;
-
+import "forge-std/console.sol";
 contract Deployer {
     /*
         This exercise assumes you know how to deploy a contract.
@@ -10,6 +10,9 @@ contract Deployer {
 
     function deployContract() public returns (address) {
         // your code here
+        DeployMe deployme = new DeployMe();
+        console.log(msg.sender);
+        return address(deployme);
     }
 }
 

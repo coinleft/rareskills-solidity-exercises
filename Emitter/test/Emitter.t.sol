@@ -16,6 +16,8 @@ contract EmitterTest is Test {
     function testEmitterEvent() public {
         vm.expectEmit(true, true, false, false);
         emit Trigger(msg.sender, 20);
+
         emitter.emitEvent(msg.sender, 20);
+
     }
 }
