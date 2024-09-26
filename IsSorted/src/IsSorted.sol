@@ -5,7 +5,19 @@ contract IsSorted {
     /**
      * The goal of this exercise is to return true if the members of "arr" is sorted (in ascending order) or false if its not.
      */
-    function isSorted(uint256[] calldata arr) public view returns (bool) {
+    function isSorted(uint256[] calldata arr) public pure returns (bool) {
         // your code here
+        // 如果数组长度小于等于 1，自动认为是排序的
+        if (arr.length <= 1) {
+            return true;
+        }
+
+        for (uint256 i = 1; i < arr.length; i++) {
+            if (arr[i - 1] > arr[i]) {
+                return false; 
+            }
+        }
+
+        return true; 
     }
 }
