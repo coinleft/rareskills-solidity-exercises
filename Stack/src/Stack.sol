@@ -22,4 +22,26 @@ contract Stack {
     }
 
     // your code here
+    function push(uint256 _value) public {
+        stack.push(_value);
+    }
+
+    function peek() public view returns(uint256) {
+        return stack[stack.length - 1];
+    }
+
+    function pop() public returns(uint256) {
+        require(stack.length > 0, "Array is already empty");
+        uint256 popValue = peek();
+        stack.pop();
+        return popValue;
+    }
+
+    function size() public view returns(uint256) {
+        return stack.length;
+    }
+
+    function getStack() public view returns(uint256[] memory) {
+        return stack;
+    }
 }
