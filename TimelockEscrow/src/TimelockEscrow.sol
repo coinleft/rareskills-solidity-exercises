@@ -3,6 +3,10 @@ pragma solidity ^0.8.13;
 
 contract TimelockEscrow {
     address public seller;
+    uint256 public orderTimestamp;
+    bool isActive = false;
+    bool isWithdrawn = false;
+    mapping (address => uint) balances;
 
     /**
      * The goal of this exercise is to create a Time lock escrow.
@@ -10,9 +14,11 @@ contract TimelockEscrow {
      * Assume the owner is the seller
      */
 
+
     constructor() {
         seller = msg.sender;
     }
+
 
     // creates a buy order between msg.sender and seller
     /**
@@ -21,6 +27,10 @@ contract TimelockEscrow {
      */
     function createBuyOrder() external payable {
         // your code here
+        require(!isActive && !isWithdrawn, "An active escrow still exist or last escrow hasn't been withdrawn");
+        orderTimestamp = block.timestamp;
+        isActive = true;
+        balances[msg.sender] += msg.value;
     }
 
     /**
@@ -28,6 +38,9 @@ contract TimelockEscrow {
      */
     function sellerWithdraw(address buyer) external {
         // your code here
+        require((block.timestamp - orderTimestamp) > 3 days);
+        payable(seller).transfer(balances[buyer]);
+        isWithdrawn = true;
     }
 
     /**
@@ -35,10 +48,15 @@ contract TimelockEscrow {
      */
     function buyerWithdraw() external {
         // your code here
+        require((block.timestamp - orderTimestamp) <= 3 days);
+        payable(msg.sender).transfer(balances[msg.sender]);
+        isWithdrawn = true;
+        
     }
 
     // returns the escrowed amount of @param buyer
     function buyerDeposit(address buyer) external view returns (uint256) {
         // your code here
+        return balances[buyer];
     }
 }
